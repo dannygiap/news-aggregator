@@ -210,7 +210,9 @@ app.get('/user', auth, (req, res) => {
     });
 });
 
-app.listen(3001);
+app.listen(process.env.PORT, () => {
+  console.log(`this is running on port ${process.env.PORT}`);
+});
 
 // let query = UserModel.find({ name: 'john doe' });
 // query.exec((err, user) => {
