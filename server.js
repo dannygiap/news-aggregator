@@ -155,7 +155,7 @@ app.put('/preferences', auth, (req, res) => {
 });
 
 app.get('/search/:input', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  //   res.setHeader('Access-Control-Allow-Origin', '*');
   fetch(
     `https://newsaggregation.cognitiveservices.azure.com/bing/v7.0/news/search?q=${req.params.input}`,
     {
@@ -171,7 +171,7 @@ app.get('/search/:input', (req, res) => {
 });
 
 app.get('/news/:input', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  //   res.setHeader('Access-Control-Allow-Origin', '*');
   fetch(
     `https://newsaggregation.cognitiveservices.azure.com/bing/v7.0/news?category=${req.params.input}`,
     {
@@ -187,7 +187,7 @@ app.get('/news/:input', (req, res) => {
 });
 
 app.get('/news/trending', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  //   res.setHeader('Access-Control-Allow-Origin', '*');
   fetch(
     'https://newsaggregation.cognitiveservices.azure.com/bing/v7.0/news/trendingtopics?mkt=en-us',
     {
@@ -210,9 +210,7 @@ app.get('/user', auth, (req, res) => {
     });
 });
 
-app.listen(3001, () => {
-  console.log('Listening on port 3001');
-});
+app.listen(3001);
 
 // let query = UserModel.find({ name: 'john doe' });
 // query.exec((err, user) => {
