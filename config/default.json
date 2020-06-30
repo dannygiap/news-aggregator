@@ -1,0 +1,5 @@
+{
+  "URI": "mongodb+srv://dannyg:xxlmk1121@cluster0-u7rds.mongodb.net/users?retryWrites=true&w=majority",
+  "key": "479de409c6014387920c41ebe56d8533",
+  "jwtSecret": "newssecret"
+}
