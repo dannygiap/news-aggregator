@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const auth = require('./middleware/auth');
+const path = require('path');
 
 const saltRounds = 10;
 
@@ -51,7 +52,6 @@ app.get('/', (req, res) => {
 
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
-  console.log(email, password);
   if (!email || !password) {
     return res.status(400).json({ msg: 'invalid form submission' });
   }
@@ -142,16 +142,15 @@ app.put('/preferences', auth, (req, res) => {
   console.log('reached update preference endpoint');
   UserModel.findByIdAndUpdate(
     req.user.id,
-    { preferences: req.body.preferences },
-    function (err, success) {
-      if (err) {
-        res.send('An error has occured');
-        console.log(err);
-      } else {
-        res.send('updated preferences');
-      }
+    {
+      preferences: req.body.preferences,
+    },
+    { new: true },
+    (err, result) => {
+      if (err) throw err;
+      res.json(result);
     }
-  );
+  ).catch((err) => res.json({ msg: 'failed to update' }));
 });
 
 app.get('/search/:input', (req, res) => {
@@ -210,17 +209,17 @@ app.get('/user', auth, (req, res) => {
     });
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`this is running on port ${process.env.PORT}`);
+const port = process.env.PORT || 3001;
+
+//serve static if in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}
+
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
 });
-
-// let query = UserModel.find({ name: 'john doe' });
-// query.exec((err, user) => {
-//   if (err) {
-//     console.log(err);
-//   } else {
-//     console.log(user);
-//   }
-// });
-
-// UserModel.collection.drop();

@@ -1,0 +1,13 @@
+.link {
+  color: #eeeeee;
+  /* padding: 15px; */
+}
+
+.link:hover {
+  background-color: #4ecca3;
+  color: #eeeeee;
+}
+
+.dark-text {
+  color: #393e46;
+}
