@@ -6,7 +6,7 @@ export const searchNews = (input) => (dispatch) => {
   if (input === '') {
     input = null;
   }
-  fetch(`http://localhost:3001/search/${input}`)
+  fetch(`${process.env.PORT}/search/${input}`)
     .then((res) => res.json())
     .then((res) => {
       res.value.forEach((element) => {
@@ -40,7 +40,7 @@ export const searchNews = (input) => (dispatch) => {
 
 export const getNews = (category) => (dispatch) => {
   let articleList = [];
-  fetch(`http://localhost:3001/news/${category}`)
+  fetch(`${process.env.PORT}/news/${category}`)
     .then((res) => res.json())
     .then((res) => {
       res.value.forEach((element) => {
