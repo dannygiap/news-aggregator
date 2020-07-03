@@ -210,9 +210,8 @@ app.get('/user', auth, (req, res) => {
 });
 
 const port = process.env.PORT || 3001;
-
 //serve static if in production
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV.trim() === 'production') {
   app.use(express.static('frontend/build'));
 
   app.get('*', (req, res) => {
